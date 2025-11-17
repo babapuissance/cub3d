@@ -3,7 +3,8 @@
     "allow": [
       "Bash(do echo \"=== $func ===\")",
       "Bash(for file in src/raycasting/raycaster_utils.c src/engine/doors_render.c src/textures/cf_colors.c src/engine/mob.c)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git check-ignore:*)"
     ],
     "deny": [],
     "ask": []
