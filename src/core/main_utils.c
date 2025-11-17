@@ -1,0 +1,133 @@
+/* ************************************************************************** */
+
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/25 10:00:00 by nbariol-          #+#    #+#             */
+/*   Updated: 2024/10/28 12:00:00 by nbariol-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3d.h"
+
+static char	*ft_strjoin_free(char *s1, char const *s2, int free_s1)
+{
+	char	*result;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	i;
+	size_t	j;
+
+	if (!s2)
+		return (s1);
+	s1_len = (s1 ? ft_strlen(s1) : 0);
+	s2_len = ft_strlen(s2);
+	result = malloc(s1_len + s2_len + 1);
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	if (s1)
+		while (i < s1_len)
+			result[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		result[i++] = s2[j++];
+	result[i] = '\0';
+	if (free_s1 && s1)
+		free(s1);
+	return (result);
+}
+
+static int	read_map_loop1(t_cub *data, char *line, size_t *i, size_t *j)
+{
+	size_t	len;
+
+	if (!line)
+		return (0);
+	data->map->map = ft_strjoin_free(data->map->map, line, 1);
+	if (!data->map->map)
+		return (0);
+	len = ft_strlen(line);
+	if (len > *j)
+		*j = len;
+	(*i)++;
+	return (1);
+}
+
+static int	is_valid_trailing_line(char *line)
+{
+	size_t	k;
+
+	k = 0;
+	while (line[k])
+	{
+		if (line[k] != ' ' && line[k] != '\t' && line[k] != '\n'
+			&& line[k] != '1' && line[k] != '0')
+			return (0);
+		k++;
+	}
+	return (1);
+}
+
+static int	read_map_loop2(char *line, int fd)
+{
+	while (line != NULL)
+	{
+		if (!is_valid_trailing_line(line))
+		{
+			cleanup_remaining_lines(fd);
+			free(line);
+			printf("Map is not last in the .cub file");
+			return (0);
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (1);
+}
+
+int	read_map_content(t_cub *data, int fd)
+{
+	char	*line;
+	size_t	i;
+	size_t	j;
+
+	line = get_next_line(fd);
+	i = 1;
+	j = 0;
+	if (data->map->map)
+		j = ft_strlen(data->map->map);
+	while (line && !is_first_or_last_line_valid(line))
+	{
+		if (!read_map_loop1(data, line, &i, &j))
+			return (0);
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (line && !read_map_loop1(data, line, &i, &j))
+		return (0);
+	data->map->height = i;
+	data->map->width = j;
+	free(line);
+	line = get_next_line(fd);
+	return (read_map_loop2(line, fd));
+}
+
+int	cleanup_remaining_lines(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	if (!line)
+		return (1);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (0);
+}
