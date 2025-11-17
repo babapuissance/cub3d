@@ -14,7 +14,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libft/libft.h"
-# include "../minilibx_opengl_20191021/mlx.h"
+
+# ifdef __linux__
+#  include "../minilibx-linux/mlx.h"
+#  include <X11/keysym.h>
+# else
+#  include "../minilibx_opengl_20191021/mlx.h"
+# endif
+
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
@@ -37,16 +44,18 @@
 # define TICK_SPEED 0.1
 # define TARGET_FPS 60
 
-# define XK_Escape 53
-# define XK_w 13
-# define XK_s 1
-# define XK_a 0
-# define XK_d 2
-# define XK_space 49
-
-# define XK_m 46
-# define XK_Left 123
-# define XK_Right 124
+// Keycodes - macOS only (Linux uses X11 keysyms from keysym.h)
+# ifndef __linux__
+#  define XK_Escape 53
+#  define XK_w 13
+#  define XK_s 1
+#  define XK_a 0
+#  define XK_d 2
+#  define XK_space 49
+#  define XK_m 46
+#  define XK_Left 123
+#  define XK_Right 124
+# endif
 
 # define GAME_MENU 0
 # define GAME_PLAYING 1

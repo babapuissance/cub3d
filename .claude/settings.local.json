@@ -4,7 +4,12 @@
       "Bash(do echo \"=== $func ===\")",
       "Bash(for file in src/raycasting/raycaster_utils.c src/engine/doors_render.c src/textures/cf_colors.c src/engine/mob.c)",
       "Bash(echo:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(make:*)",
+      "Bash(gdb:*)",
+      "Bash(pkill:*)",
+      "Bash(timeout 3 ./cub3D:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []

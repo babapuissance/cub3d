@@ -117,9 +117,12 @@ bool	flood_fill_test(t_cub *data, char **map)
 		{
 			if (is_player_character(map[y][x]))
 			{
+				bool	result;
+
 				flood_fill(map_copy, x, y, data->map->height);
-				return (free_map_copy(map_copy, data->map->height),
-					check_map_borders_after_flood(map_copy, data->map->height));
+				result = check_map_borders_after_flood(map_copy, data->map->height);
+				free_map_copy(map_copy, data->map->height);
+				return (result);
 			}
 			x++;
 		}

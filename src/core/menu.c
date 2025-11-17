@@ -35,7 +35,7 @@ static int	load_texture_generic(t_cub *data, t_texture **tex_ptr, char *path)
 
 int	load_menu_texture(t_cub *data)
 {
-	if (!load_texture_generic(data, &data->menu_texture, "textures/Menu.xpm"))
+	if (!load_texture_generic(data, &data->menu_texture, "textures/menu.xpm"))
 	{
 		data->menu_texture = malloc(sizeof(t_texture));
 		if (!data->menu_texture)
