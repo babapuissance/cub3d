@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sprite_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 12:44:34 by nbariol-          #+#    #+#             */
-/*   Updated: 2025/11/15 12:44:37 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:39 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:47:30 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +20,15 @@ static void	calculate_sprite_transform(t_cub *d, double *tr_x, double *tr_y)
 
 	sprite_x = d->sprite->x - d->player->pos_x;
 	sprite_y = d->sprite->y - d->player->pos_y;
-	inv_det = 1.0 / (d->player->planex * d->player->diry
-		- d->player->dirx * d->player->planey);
-	*tr_x = inv_det * (d->player->diry * sprite_x
-		- d->player->dirx * sprite_y);
-	*tr_y = inv_det * (-d->player->planey * sprite_x
-		+ d->player->planex * sprite_y);
+	inv_det = 1.0 / (d->player->planex * d->player->diry - d->player->dirx
+			* d->player->planey);
+	*tr_x = inv_det * (d->player->diry * sprite_x - d->player->dirx * sprite_y);
+	*tr_y = inv_det * (-d->player->planey * sprite_x + d->player->planex
+			* sprite_y);
 }
 
-static void	set_sprite_screen_pos(double tr_x, double tr_y,
-	int *screen_x, int *sprite_h)
+static void	set_sprite_screen_pos(double tr_x, double tr_y, int *screen_x,
+		int *sprite_h)
 {
 	*screen_x = (int)((WIDTH / 2) * (1 + tr_x / tr_y));
 	*sprite_h = abs((int)(HEIGHT / tr_y));
@@ -87,8 +85,8 @@ void	render_sprite(t_cub *data)
 	calculate_sprite_transform(data, &transform_x, &transform_y);
 	if (transform_y <= 0)
 		return ;
-	set_sprite_screen_pos(transform_x, transform_y,
-		&sprite_left, &sprite_height);
+	set_sprite_screen_pos(transform_x, transform_y, &sprite_left,
+		&sprite_height);
 	sprite_width = sprite_height * data->sprite->texture->width
 		/ data->sprite->texture->height;
 	draw_end = HEIGHT / 2 + sprite_height / 2;

@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   menu.c                                                       :+:      :+:    :+:   */
+/*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/07 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:42:44 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:46:56 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +17,8 @@ static int	load_texture_generic(t_cub *data, t_texture **tex_ptr, char *path)
 	*tex_ptr = malloc(sizeof(t_texture));
 	if (!*tex_ptr)
 		return (0);
-	(*tex_ptr)->img = mlx_xpm_file_to_image(data->mlx, path,
-		&(*tex_ptr)->width, &(*tex_ptr)->height);
+	(*tex_ptr)->img = mlx_xpm_file_to_image(data->mlx, path, &(*tex_ptr)->width,
+			&(*tex_ptr)->height);
 	if (!(*tex_ptr)->img)
 	{
 		printf("Warning: Could not load %s\n", path);
@@ -28,8 +27,8 @@ static int	load_texture_generic(t_cub *data, t_texture **tex_ptr, char *path)
 		return (0);
 	}
 	(*tex_ptr)->addr = mlx_get_data_addr((*tex_ptr)->img,
-		&(*tex_ptr)->bits_per_pixel, &(*tex_ptr)->line_length,
-		&(*tex_ptr)->endian);
+			&(*tex_ptr)->bits_per_pixel, &(*tex_ptr)->line_length,
+			&(*tex_ptr)->endian);
 	return (1);
 }
 
@@ -71,5 +70,6 @@ int	load_win_texture(t_cub *data)
 
 int	load_gameover_texture(t_cub *data)
 {
-	return (load_texture_generic(data, &data->gameover_texture, "textures/gameover.xpm"));
+	return (load_texture_generic(data, &data->gameover_texture,
+			"textures/gameover.xpm"));
 }

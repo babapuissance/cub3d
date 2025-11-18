@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycaster_utils.c                                            :+:      :+:    :+:   */
+/*   raycaster_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/02 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:28 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:15 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +92,8 @@ void	dda_init(t_ray *ray, t_player *player)
 
 static bool	is_grid_position_out_of_bounds(t_ray *r, t_cub *game)
 {
-	return (r->mapy < 0 || r->mapx < 0
-		|| r->mapy >= game->map->height || r->mapx >= game->map->width);
+	return (r->mapy < 0 || r->mapx < 0 || r->mapy >= game->map->height
+		|| r->mapx >= game->map->width);
 }
 
 static bool	is_wall_tile(char tile)
@@ -135,7 +134,7 @@ void	exec_dda(t_cub *data, t_ray *ray, int hit)
 			hit = 1;
 		else if (is_door_character(tile))
 		{
-			continue;
+			continue ;
 		}
 	}
 }

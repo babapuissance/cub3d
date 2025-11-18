@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_analyzer.c                                            :+:      :+:    :+:   */
+/*   string_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/30 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:01 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:37 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +52,7 @@ int	end_of_spaces_index(char *line)
 	int	position;
 
 	position = 0;
-	while (line[position] && (line[position] == ' '
-			|| line[position] == '\t'))
+	while (line[position] && (line[position] == ' ' || line[position] == '\t'))
 		position++;
 	return (position);
 }
@@ -108,14 +106,12 @@ bool	is_valid_identifier(char *line)
 		ft_free(parsed);
 		return (false);
 	}
-	is_valid = (ft_strncmp(parsed[0], "NO", 3) == 0
-			|| ft_strncmp(parsed[0], "SO", 3) == 0
-			|| ft_strncmp(parsed[0], "WE", 3) == 0
-			|| ft_strncmp(parsed[0], "EA", 3) == 0
-			|| ft_strncmp(parsed[0], "F", 2) == 0
-			|| ft_strncmp(parsed[0], "C", 2) == 0
-			|| ft_strncmp(parsed[0], "FT", 3) == 0
-			|| ft_strncmp(parsed[0], "CT", 3) == 0);
+	is_valid = (ft_strncmp(parsed[0], "NO", 3) == 0 || ft_strncmp(parsed[0],
+				"SO", 3) == 0 || ft_strncmp(parsed[0], "WE", 3) == 0
+			|| ft_strncmp(parsed[0], "EA", 3) == 0 || ft_strncmp(parsed[0], "F",
+				2) == 0 || ft_strncmp(parsed[0], "C", 2) == 0
+			|| ft_strncmp(parsed[0], "FT", 3) == 0 || ft_strncmp(parsed[0],
+				"CT", 3) == 0);
 	ft_free(parsed);
 	return (is_valid);
 }

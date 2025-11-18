@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_utils2.c                                          :+:      :+:    :+:   */
+/*   initialize_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/01 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:53 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:05 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,37 +81,46 @@ typedef struct s_direction
 	double	diry;
 	double	planex;
 	double	yaw;
-}	t_direction;
+}			t_direction;
 
 void	set_player_direction(t_player *player, t_direction dir)
 {
 	player->dirx = dir.dirx;
 	player->diry = dir.diry;
 	player->planex = dir.planex;
-	player->planey = (dir.planex != 0) ? 0 : 0.888 * (dir.diry != 0 ? dir.diry : 1);
+	player->planey = (dir.planex != 0) ? 0 : 0.888
+		* (dir.diry != 0 ? dir.diry : 1);
 	player->yaw = dir.yaw;
 }
 
 void	set_player_direction_north(t_player *player)
 {
-	t_direction	dir = {0, -1, 0.888, -M_PI / 2};
+	t_direction	dir;
+
+	dir = {0, -1, 0.888, -M_PI / 2};
 	set_player_direction(player, dir);
 }
 
 void	set_player_direction_south(t_player *player)
 {
-	t_direction	dir = {0, 1, -0.888, M_PI / 2};
+	t_direction	dir;
+
+	dir = {0, 1, -0.888, M_PI / 2};
 	set_player_direction(player, dir);
 }
 
 void	set_player_direction_east(t_player *player)
 {
-	t_direction	dir = {1, 0, 0, 0};
+	t_direction	dir;
+
+	dir = {1, 0, 0, 0};
 	set_player_direction(player, dir);
 }
 
 void	set_player_direction_west(t_player *player)
 {
-	t_direction	dir = {-1, 0, 0, M_PI};
+	t_direction	dir;
+
+	dir = {-1, 0, 0, M_PI};
 	set_player_direction(player, dir);
 }

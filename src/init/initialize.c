@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                                 :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 09:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/29 10:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:59 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:07 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +24,18 @@ static void	set_player_direction_and_camera(t_player *player)
 {
 	switch (player->player_dir)
 	{
-		case 'N':
-			set_player_direction_north(player);
-			break ;
-		case 'S':
-			set_player_direction_south(player);
-			break ;
-		case 'E':
-			set_player_direction_east(player);
-			break ;
-		case 'W':
-			set_player_direction_west(player);
-			break ;
+	case 'N':
+		set_player_direction_north(player);
+		break ;
+	case 'S':
+		set_player_direction_south(player);
+		break ;
+	case 'E':
+		set_player_direction_east(player);
+		break ;
+	case 'W':
+		set_player_direction_west(player);
+		break ;
 	}
 }
 

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_image.c                                              :+:      :+:    :+:   */
+/*   minimap_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/08 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:44:04 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:11 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	fill_tile_block(t_minimap *m, int x, int y, int color)
@@ -34,15 +34,15 @@ static int	get_tile_color(char tile_type)
 {
 	switch (tile_type)
 	{
-		case 'P':
-			return (MMAP_COLOR_PLAYER);
-		case '1':
-			return (MMAP_COLOR_WALL);
-		case '0':
-			return (MMAP_COLOR_FLOOR);
-		case ' ':
-		default:
-			return (MMAP_COLOR_SPACE);
+	case 'P':
+		return (MMAP_COLOR_PLAYER);
+	case '1':
+		return (MMAP_COLOR_WALL);
+	case '0':
+		return (MMAP_COLOR_FLOOR);
+	case ' ':
+	default:
+		return (MMAP_COLOR_SPACE);
 	}
 }
 
@@ -85,8 +85,8 @@ void	render_minimap_image(t_cub *data, t_minimap *minimap)
 	init_img(data, &data->minimap, img_size, img_size);
 	paint_minimap_tiles(minimap);
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap.data,
-		minimap->tile_size, data->w_height
-		- (MMAP_PIXEL_SIZE + (minimap->tile_size * 2)));
+		minimap->tile_size, data->w_height - (MMAP_PIXEL_SIZE
+			+ (minimap->tile_size * 2)));
 	if (data->minimap.data)
 		mlx_destroy_image(data->mlx, data->minimap.data);
 }

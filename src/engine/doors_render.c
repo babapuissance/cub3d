@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   doors_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 12:44:34 by nbariol-          #+#    #+#             */
-/*   Updated: 2025/11/15 12:44:37 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:20 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:47:22 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +17,7 @@ typedef struct s_door_proj
 	double	t;
 	double	u;
 	int		mode;
-}	t_door_proj;
+}			t_door_proj;
 
 static int	clamp_texture_x(double u, t_texture *tex)
 {
@@ -52,7 +51,7 @@ static void	draw_door_pixel(t_cub *g, int x, int y, t_door_proj proj)
 	tex_y = compute_texture_y(g, g->door_texture, y, line_h);
 	color = get_texture_color(g->door_texture, tex_x, tex_y);
 	if ((color & 0x00FFFFFF) != 0 && (proj.mode == 0 || proj.mode == 3
-		|| proj.mode == 1))
+			|| proj.mode == 1))
 		my_mlx_pixel_put(&g->img, x, y, color);
 }
 
@@ -82,8 +81,8 @@ static void	draw_door_column(t_cub *g, int x, t_door_proj proj)
 		g->z_buffer[x] = proj.t;
 }
 
-static int	compute_ray_intersection(t_cub *g, t_door *door,
-	double camera_x, double *out_t, double *out_u)
+static int	compute_ray_intersection(t_cub *g, t_door *door, double camera_x,
+		double *out_t, double *out_u)
 {
 	double	rx;
 	double	ry;
@@ -119,10 +118,10 @@ static int	compute_ray_intersection(t_cub *g, t_door *door,
 
 static void	render_one_door_loop(t_cub *g, t_door *door, int mode)
 {
-	double	t;
-	double	u;
-	double	camera_x;
-	int		x;
+	double		t;
+	double		u;
+	double		camera_x;
+	int			x;
 	t_door_proj	proj;
 
 	x = 0;
@@ -132,7 +131,7 @@ static void	render_one_door_loop(t_cub *g, t_door *door, int mode)
 		if (compute_ray_intersection(g, door, camera_x, &t, &u))
 		{
 			if (!(t >= g->z_buffer[x] && (door->is_closed || mode == 1
-				|| mode == 3)))
+						|| mode == 3)))
 			{
 				proj.t = t;
 				proj.u = u;

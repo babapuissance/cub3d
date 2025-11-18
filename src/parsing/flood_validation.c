@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   flood_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/31 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:44:45 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:28 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +20,9 @@ bool	is_walkable(char c)
 
 static bool	is_valid_map_character(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' || c == '6' || c == '3'
-		|| c == 'D' || c == 'F'
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W'
-		|| c == '\n' || c == '\0');
+	return (c == '0' || c == '1' || c == ' ' || c == '6' || c == '3' || c == 'D'
+		|| c == 'F' || c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '\n'
+		|| c == '\0');
 }
 
 static bool	validate_door_d(char **map, int x, int y, int height)
@@ -54,11 +52,11 @@ bool	validate_map_in_single_pass(t_cub *data, char **map)
 		{
 			if (!is_valid_map_character(map[y][x]))
 				return (false);
-			if (map[y][x] == 'D'
-				&& !validate_door_d(map, x, y, data->map->height))
+			if (map[y][x] == 'D' && !validate_door_d(map, x, y,
+					data->map->height))
 				return (false);
-			if (map[y][x] == 'F'
-				&& !validate_door_f(map, x, y, data->map->width))
+			if (map[y][x] == 'F' && !validate_door_f(map, x, y,
+					data->map->width))
 				return (false);
 			x++;
 		}

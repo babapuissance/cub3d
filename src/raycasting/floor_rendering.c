@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor_rendering.c                                            :+:      :+:    :+:   */
+/*   floor_rendering.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/04 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:19 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:10 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +14,9 @@
 
 typedef struct s_ray_direction
 {
-	double	x;
-	double	y;
-}	t_ray_direction;
+	double				x;
+	double				y;
+}						t_ray_direction;
 
 static t_ray_direction	get_floor_ray_direction(t_cub *game, int x)
 {
@@ -30,7 +29,8 @@ static t_ray_direction	get_floor_ray_direction(t_cub *game, int x)
 	return (ray_dir);
 }
 
-static void	calculate_floor_position(t_cub *game, int y, t_ray_direction ray, double *out)
+static void	calculate_floor_position(t_cub *game, int y, t_ray_direction ray,
+		double *out)
 {
 	double	row_distance;
 	double	pos_z;

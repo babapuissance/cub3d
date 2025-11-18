@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                                   :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/29 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:45 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:00 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +52,7 @@ static void	create_game_image(t_cub *cub)
 	if (cub->img.data == NULL)
 		image_error(cub);
 	cub->img.addr = mlx_get_data_addr(cub->img.data, &cub->img.bits_per_pixel,
-		&cub->img.line_length, &cub->img.endian);
+			&cub->img.line_length, &cub->img.endian);
 }
 
 void	initialize_mlx(t_cub *cub)

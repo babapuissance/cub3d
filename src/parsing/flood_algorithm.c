@@ -1,19 +1,18 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_algorithm.c                                            :+:      :+:    :+:   */
+/*   flood_algorithm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/31 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:44:39 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:25 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-bool	validate_map_in_single_pass(t_cub *data, char **map);
+bool		validate_map_in_single_pass(t_cub *data, char **map);
 
 char	**copy_map(char **original, int height)
 {
@@ -74,8 +73,7 @@ void	flood_fill(char **map_copy, int x, int y, int height)
 {
 	if (check_bounds(map_copy, x, y, height))
 		return ;
-	if (map_copy[y][x] == ' ' || map_copy[y][x] == '1'
-		|| map_copy[y][x] == 'X')
+	if (map_copy[y][x] == ' ' || map_copy[y][x] == '1' || map_copy[y][x] == 'X')
 	{
 		if (map_copy[y][x] == ' ')
 			mark_error(map_copy);
@@ -103,6 +101,7 @@ bool	flood_fill_test(t_cub *data, char **map)
 	char	**map_copy;
 	int		x;
 	int		y;
+				bool result;
 
 	if (!validate_map_in_single_pass(data, map))
 		return (false);
@@ -117,10 +116,9 @@ bool	flood_fill_test(t_cub *data, char **map)
 		{
 			if (is_player_character(map[y][x]))
 			{
-				bool	result;
-
 				flood_fill(map_copy, x, y, data->map->height);
-				result = check_map_borders_after_flood(map_copy, data->map->height);
+				result = check_map_borders_after_flood(map_copy,
+						data->map->height);
 				free_map_copy(map_copy, data->map->height);
 				return (result);
 			}

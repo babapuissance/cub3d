@@ -1,17 +1,16 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monster_event.c                                              :+:      :+:    :+:   */
+/*   monster_event.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 09:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/07 10:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/13 23:05:31 by nbariol-          #+#    #+#             */
+/*   Updated: 2025/11/18 13:46:22 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 #include <stdlib.h>
 #include <sys/time.h>
 
@@ -22,4 +21,3 @@ long	now_ms(void)
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
-

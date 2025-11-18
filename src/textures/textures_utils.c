@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures_utils.c                                             :+:      :+:    :+:   */
+/*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/05 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:52 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:29 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +24,8 @@ t_texture	*load_texture_from_xpm(t_cub *data, const char *path)
 	tex = allocate_texture_structure();
 	if (!tex)
 		return (NULL);
-	tex->img = mlx_xpm_file_to_image(data->mlx, (char *)path,
-			&tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(data->mlx, (char *)path, &tex->width,
+			&tex->height);
 	if (!tex->img)
 		return (free(tex), NULL);
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,

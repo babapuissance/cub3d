@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mob.c                                                        :+:      :+:    :+:   */
+/*   mob.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/06 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:29 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:47:27 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +40,7 @@ typedef struct s_mob_move
 	double	dx;
 	double	dy;
 	double	dt;
-}	t_mob_move;
+}			t_mob_move;
 
 static void	try_move(t_mob *m, t_cub *data, t_mob_move move)
 {
@@ -52,17 +51,20 @@ static void	try_move(t_mob *m, t_cub *data, t_mob_move move)
 	r = 0.20;
 	nx = m->x + move.dx * data->mob_speed * move.dt;
 	ny = m->y + move.dy * data->mob_speed * move.dt;
-	if (!is_wall(data->map->map_tab, (int)(nx + (move.dx > 0 ? r : -r)), (int)(m->y), data))
+	if (!is_wall(data->map->map_tab, (int)(nx + (move.dx > 0 ? r : -r)),
+			(int)(m->y), data))
 		m->x = nx;
-	if (!is_wall(data->map->map_tab, (int)(m->x), (int)(ny + (move.dy > 0 ? r : -r)), data))
+	if (!is_wall(data->map->map_tab, (int)(m->x), (int)(ny + (move.dy > 0 ? r :
+					-r)), data))
 		m->y = ny;
 }
 
 void	mob_update(t_cub *data, double dt)
 {
-	double	dx;
-	double	dy;
-	double	len;
+	double		dx;
+	double		dy;
+	double		len;
+	t_mob_move	move;
 
 	if (!data->mob)
 		return ;
@@ -82,7 +84,7 @@ void	mob_update(t_cub *data, double dt)
 	dx /= len;
 	dy /= len;
 	{
-		t_mob_move move = {dx, dy, dt};
+		move = {dx, dy, dt};
 		try_move(data->mob, data, move);
 	}
 }
@@ -124,7 +126,8 @@ void	init_mob(t_cub *data)
 	data->mob->frame = 0;
 	data->mob->t_anim = 0.0;
 	data->mob->img[0] = load_texture_from_xpm(data, "textures/monster.xpm");
-	data->mob->img[1] = load_texture_from_xpm(data, "textures/monstre_work.xpm");
+	data->mob->img[1] = load_texture_from_xpm(data,
+			"textures/monstre_work.xpm");
 }
 
 void	mob_render(t_cub *data)

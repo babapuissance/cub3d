@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_move_utils.c                                          :+:      :+:    :+:   */
+/*   player_move_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/03 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:05 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:39 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +29,10 @@ typedef struct s_door_check
 	int		grid_y;
 	double	target_x;
 	double	target_y;
-}	t_door_check;
+}			t_door_check;
 
-static bool	is_blocked_by_closed_door(t_cub *game, double current_x, t_door_check check)
+static bool	is_blocked_by_closed_door(t_cub *game, double current_x,
+		t_door_check check)
 {
 	int		i;
 	double	dx;
@@ -45,7 +45,8 @@ static bool	is_blocked_by_closed_door(t_cub *game, double current_x, t_door_chec
 	while (i < game->door_count)
 	{
 		door = &game->doors[i];
-		if (door->i == check.grid_x && door->j == check.grid_y && door->is_closed)
+		if (door->i == check.grid_x && door->j == check.grid_y
+			&& door->is_closed)
 		{
 			if (door->orient == DOOR_Y && dx != 0)
 				return (true);
@@ -59,9 +60,10 @@ static bool	is_blocked_by_closed_door(t_cub *game, double current_x, t_door_chec
 
 bool	can_move_to_coordinates(t_cub *game, double target_x, double target_y)
 {
-	int		grid_x;
-	int		grid_y;
-	char	tile;
+	int				grid_x;
+	int				grid_y;
+	char			tile;
+	t_door_check	check;
 
 	if (!is_position_within_map_bounds(target_x, target_y, game->map))
 		return (false);
@@ -73,7 +75,7 @@ bool	can_move_to_coordinates(t_cub *game, double target_x, double target_y)
 		if (!is_door_character(tile))
 			return (false);
 		{
-			t_door_check check = {grid_x, grid_y, target_x, target_y};
+			check = {grid_x, grid_y, target_x, target_y};
 			if (is_blocked_by_closed_door(game, game->player->pos_x, check))
 				return (false);
 		}

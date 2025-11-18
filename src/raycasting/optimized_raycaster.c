@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   optimized_raycaster.c                                        :+:      :+:    :+:   */
+/*   optimized_raycaster.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 10:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/02 12:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:24 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:12 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +40,8 @@ static void	render_floor_optimized(t_cub *game, int col, int start)
 	}
 }
 
-static void	render_wall_optimized(t_cub *game, int col, t_texture *tex, int tex_x)
+static void	render_wall_optimized(t_cub *game, int col, t_texture *tex,
+		int tex_x)
 {
 	int		y_coord;
 	int		texture_y;
@@ -87,7 +87,7 @@ void	cast_single_ray(t_cub *data, int x)
 
 int	raycasting(t_cub *data)
 {
-	int	screen_column;
+	int			screen_column;
 	t_texture	*wall_tex;
 	int			texture_x_coord;
 

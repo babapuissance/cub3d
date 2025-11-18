@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   texture_optional.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 09:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/05 10:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:46 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:27 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +32,8 @@ int	floor_texture(t_cub *data)
 
 	config_lines = data->map->infos;
 	line_idx = 0;
-	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx],
-		"FT", ft_strlen(config_lines[line_idx])))
+	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx], "FT",
+			ft_strlen(config_lines[line_idx])))
 		line_idx++;
 	if (!config_lines[line_idx])
 	{
@@ -52,8 +51,8 @@ int	ceiling_texture(t_cub *data)
 
 	config_lines = data->map->infos;
 	line_idx = 0;
-	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx],
-		"CT", ft_strlen(config_lines[line_idx])))
+	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx], "CT",
+			ft_strlen(config_lines[line_idx])))
 		line_idx++;
 	if (!config_lines[line_idx])
 	{

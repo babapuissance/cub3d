@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_utils.c                                              :+:      :+:    :+:   */
+/*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/08 14:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:44:12 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:48:16 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void	init_img(t_cub *data, t_img *img, int width, int height)
@@ -27,8 +27,8 @@ void	set_image_pixel(t_img *img, int x, int y, int color)
 
 	if (!img || !img->addr)
 		return ;
-	pixel_addr = img->addr + (y * img->line_length
-			+ x * (img->bits_per_pixel / 8));
+	pixel_addr = img->addr + (y * img->line_length + x * (img->bits_per_pixel
+				/ 8));
 	*(unsigned int *)pixel_addr = color;
 }
 

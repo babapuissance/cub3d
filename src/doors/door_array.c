@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   door_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 09:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/06 10:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:42:57 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:47:10 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +60,7 @@ static int	fill_doors_array(t_cub *data)
 			{
 				data->doors[count].i = x;
 				data->doors[count].j = y;
-				data->doors[count].orient = detect_door_orient(
-					data->map->map_tab[y][x]);
+				data->doors[count].orient = detect_door_orient(data->map->map_tab[y][x]);
 				data->doors[count].is_closed = 1;
 				count++;
 			}

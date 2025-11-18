@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sprite_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/15 12:44:34 by nbariol-          #+#    #+#             */
-/*   Updated: 2025/11/15 12:44:37 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:43:35 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:47:36 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +54,7 @@ void	init_sprite(t_cub *data)
 
 	data->sprite_texture = load_texture_from_xpm(data, "textures/monster.xpm");
 	data->screamer_texture = load_texture_from_xpm(data,
-		"textures/monster_scream_face.xpm");
+			"textures/monster_scream_face.xpm");
 	if (!data->sprite_texture || !data->screamer_texture)
 		return ;
 	data->sprite = malloc(sizeof(t_sprite));

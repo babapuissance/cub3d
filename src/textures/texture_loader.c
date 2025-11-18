@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 09:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/11/05 10:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 13:45:42 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 13:49:24 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +20,8 @@ int	parse_texture_path(t_cub *game, char *id, char **dest, char *err)
 
 	config_lines = game->map->infos;
 	line_idx = 0;
-	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx],
-		id, ft_strlen(config_lines[line_idx])))
+	while (config_lines[line_idx] && !ft_strnstr(config_lines[line_idx], id,
+			ft_strlen(config_lines[line_idx])))
 		line_idx++;
 	if (!config_lines[line_idx])
 		return (printf("%s", err), 0);
@@ -39,8 +38,8 @@ int	parse_texture_path(t_cub *game, char *id, char **dest, char *err)
 	return (1);
 }
 
-
-static int	load_wall_texture(t_cub *d, char *id, char **path_ptr, t_texture **tex_ptr)
+static int	load_wall_texture(t_cub *d, char *id, char **path_ptr,
+		t_texture **tex_ptr)
 {
 	if (!parse_texture_path(d, id, path_ptr, "Texture reading failed.\n"))
 		return (0);
@@ -55,23 +54,23 @@ static int	load_wall_texture(t_cub *d, char *id, char **path_ptr, t_texture **te
 int	north_texture(t_cub *data)
 {
 	return (load_wall_texture(data, "NO", &data->no_texture,
-		&data->no_texture_img));
+			&data->no_texture_img));
 }
 
 int	south_texture(t_cub *data)
 {
 	return (load_wall_texture(data, "SO", &data->so_texture,
-		&data->so_texture_img));
+			&data->so_texture_img));
 }
 
 int	east_texture(t_cub *data)
 {
 	return (load_wall_texture(data, "EA", &data->ea_texture,
-		&data->ea_texture_img));
+			&data->ea_texture_img));
 }
 
 int	west_texture(t_cub *data)
 {
 	return (load_wall_texture(data, "WE", &data->we_texture,
-		&data->we_texture_img));
+			&data->we_texture_img));
 }
