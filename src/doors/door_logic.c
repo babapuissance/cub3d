@@ -87,19 +87,3 @@ void	toggle_door_state(t_cub *data)
 		y++;
 	}
 }
-
-bool	check_all_doors_open(t_cub *data)
-{
-	int	i;
-
-	if (!data || !data->doors || data->door_count == 0)
-		return (false);
-	i = 0;
-	while (i < data->door_count)
-	{
-		if (data->doors[i].is_closed == 1)
-			return (false);
-		i++;
-	}
-	return (true);
-}

@@ -22,7 +22,7 @@ static void	process_rotation_input(t_cub *game)
 
 static void	handle_player_actions(t_cub *game)
 {
-	move_player(game);																																																														
+	move_player(game);
 	process_rotation_input(game);
 	mob_update(game, 0.016);
 }
@@ -36,35 +36,39 @@ static void	render_game_frame(t_cub *g)
 	render_minimap(g);
 }
 
+static int	handle_game_state_display(t_cub *game)
+{
+	if (game->game_state == GAME_MENU && game->menu_texture
+		&& game->menu_texture->img)
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->menu_texture->img, 0, 0);
+	else if (game->game_state == GAME_WON && game->win_texture
+		&& game->win_texture->img)
+	{
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->win_texture->img, 0, 0);
+		if (now_ms() >= game->win_display_until_ms)
+			game->game_state = GAME_MENU;
+	}
+	else if (game->game_state == GAME_LOST && game->gameover_texture
+		&& game->gameover_texture->img)
+	{
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->gameover_texture->img, 0, 0);
+		if (now_ms() >= game->gameover_display_until_ms)
+			game->game_state = GAME_MENU;
+	}
+	else
+		return (1);
+	return (0);
+}
+
 int	render_frame(t_cub *game)
 {
 	static size_t	tick_count = 0;
 
-	if (game->game_state == GAME_MENU)
-	{
-		if (game->menu_texture && game->menu_texture->img)
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->menu_texture->img, 0, 0);
+	if (!handle_game_state_display(game))
 		return (0);
-	}
-	else if (game->game_state == GAME_WON)
-	{
-		if (game->win_texture && game->win_texture->img)
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->win_texture->img, 0, 0);
-		if (now_ms() >= game->win_display_until_ms)
-			game->game_state = GAME_MENU;
-		return (0);
-	}
-	else if (game->game_state == GAME_LOST)
-	{
-		if (game->gameover_texture && game->gameover_texture->img)
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->gameover_texture->img, 0, 0);
-		if (now_ms() >= game->gameover_display_until_ms)
-			game->game_state = GAME_MENU;
-		return (0);
-	}
 	if (tick_count > TICK_SPEED)
 	{
 		handle_player_actions(game);

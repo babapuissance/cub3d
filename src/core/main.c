@@ -49,33 +49,17 @@ static int	validate_and_process_map(t_cub *data)
 	return (1);
 }
 
-static void	precalculate_camera_x(t_cub *data)
+static int	handle_map_validation(t_cub *data)
 {
-	int	x;
-
-	x = 0;
-	while (x < WIDTH)
+	if (!map_checker(data, data->map->map_tab))
 	{
-		data->camera_x_cache[x] = 2.0 * x / (double)WIDTH - 1.0;
-		x++;
+		if (!check_duplicate_identifiers(data))
+			printf("Duplicate identifiers found in map info.\n");
+		else
+			printf("INVALID MAP");
+		ft_close_window(data);
 	}
-}
-
-static void	initialize_game(t_cub *data)
-{
-	player_init(data);
-	initialize_mlx(data);
-	textures_and_colors_init(data);
-	init_sprite(data);
-	init_mob(data);
-	precalculate_camera_x(data);
-}
-
-static void	run_game(t_cub *data)
-{
-	raycasting(data);
-	events_handling(data);
-	mlx_loop(data->mlx);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -92,14 +76,7 @@ int	main(int argc, char **argv)
 		return (ft_close_window(data));
 	if (!validate_and_process_map(data))
 		return (1);
-	if (!map_checker(data, data->map->map_tab))
-	{
-		if (!check_duplicate_identifiers(data))
-			printf("Duplicate identifiers found in map info.\n");
-		else
-			printf("INVALID MAP");
-		ft_close_window(data);
-	}
+	handle_map_validation(data);
 	initialize_game(data);
 	run_game(data);
 	free_data(data);

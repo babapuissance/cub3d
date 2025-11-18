@@ -60,7 +60,8 @@ static int	fill_doors_array(t_cub *data)
 			{
 				data->doors[count].i = x;
 				data->doors[count].j = y;
-				data->doors[count].orient = detect_door_orient(data->map->map_tab[y][x]);
+				data->doors[count].orient = detect_door_orient(
+						data->map->map_tab[y][x]);
 				data->doors[count].is_closed = 1;
 				count++;
 			}

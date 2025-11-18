@@ -12,26 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static void	malloc_error(void)
-{
-	perror("There was an issue with memory allocation");
-	exit(EXIT_FAILURE);
-}
-
-static void	window_error(t_cub *cub)
-{
-	free(cub->mlx);
-	malloc_error();
-}
-
-static void	image_error(t_cub *cub)
-{
-	mlx_destroy_window(cub->mlx, cub->win);
-	free(cub->mlx);
-	free(cub);
-	malloc_error();
-}
-
 static void	initialize_mlx_connection(t_cub *cub)
 {
 	cub->mlx = mlx_init();

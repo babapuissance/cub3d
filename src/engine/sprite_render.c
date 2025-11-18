@@ -51,7 +51,7 @@ static void	draw_sprite_pixel(t_cub *d, int x, int y, int prm[5])
 		my_mlx_pixel_put(&d->img, x, y, color);
 }
 
-static void	draw_sprite_column(t_cub *d, int x, int prm[5], double tr_y)
+void	draw_sprite_column(t_cub *d, int x, int prm[5], double tr_y)
 {
 	int	y;
 
@@ -70,38 +70,20 @@ static void	draw_sprite_column(t_cub *d, int x, int prm[5], double tr_y)
 
 void	render_sprite(t_cub *data)
 {
-	double	transform_x;
-	double	transform_y;
-	int		sprite_height;
-	int		sprite_width;
-	int		draw_start;
-	int		draw_end;
-	int		sprite_left;
-	int		sprite_params[5];
-	int		x;
+	double	tr[2];
+	int		screen_pos[2];
+	int		params[5];
 
 	if (!data->sprite || !data->sprite->texture)
 		return ;
-	calculate_sprite_transform(data, &transform_x, &transform_y);
-	if (transform_y <= 0)
+	calculate_sprite_transform(data, &tr[0], &tr[1]);
+	if (tr[1] <= 0)
 		return ;
-	set_sprite_screen_pos(transform_x, transform_y, &sprite_left,
-		&sprite_height);
-	sprite_width = sprite_height * data->sprite->texture->width
+	set_sprite_screen_pos(tr[0], tr[1], &screen_pos[0], &screen_pos[1]);
+	params[4] = screen_pos[1] * data->sprite->texture->width
 		/ data->sprite->texture->height;
-	draw_end = HEIGHT / 2 + sprite_height / 2;
-	draw_start = HEIGHT / 2 - sprite_height / 2;
-	sprite_left = sprite_left - sprite_width / 2;
-	sprite_params[0] = draw_start;
-	sprite_params[1] = sprite_height;
-	sprite_params[2] = sprite_left;
-	sprite_params[3] = draw_end;
-	sprite_params[4] = sprite_width;
-	x = sprite_left;
-	while (x < sprite_left + sprite_width && x < WIDTH)
-	{
-		if (x >= 0)
-			draw_sprite_column(data, x, sprite_params, transform_y);
-		x++;
-	}
+	params[2] = screen_pos[0] - params[4] / 2;
+	init_sprite_params(params, HEIGHT / 2 - screen_pos[1] / 2,
+		screen_pos[1], params[2]);
+	draw_sprite_loop(data, params, tr[1]);
 }

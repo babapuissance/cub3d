@@ -22,21 +22,14 @@ static void	init_player_movement(t_player *player)
 
 static void	set_player_direction_and_camera(t_player *player)
 {
-	switch (player->player_dir)
-	{
-	case 'N':
+	if (player->player_dir == 'N')
 		set_player_direction_north(player);
-		break ;
-	case 'S':
+	else if (player->player_dir == 'S')
 		set_player_direction_south(player);
-		break ;
-	case 'E':
+	else if (player->player_dir == 'E')
 		set_player_direction_east(player);
-		break ;
-	case 'W':
+	else if (player->player_dir == 'W')
 		set_player_direction_west(player);
-		break ;
-	}
 }
 
 void	player_init(t_cub *data)

@@ -12,17 +12,6 @@
 
 #include "../../includes/cub3d.h"
 
-bool	is_position_within_map_bounds(double x, double y, t_map *map)
-{
-	return (x >= 0 && x < map->width && y >= 0 && y < map->height);
-}
-
-bool	is_tile_walkable(char tile_char)
-{
-	return (tile_char == '0' || tile_char == '6'
-		|| is_player_character(tile_char));
-}
-
 typedef struct s_door_check
 {
 	int		grid_x;

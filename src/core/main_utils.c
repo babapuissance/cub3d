@@ -12,35 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static char	*ft_strjoin_free(char *s1, char const *s2, int free_s1)
-{
-	char	*result;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	i;
-	size_t	j;
-
-	if (!s2)
-		return (s1);
-	s1_len = (s1 ? ft_strlen(s1) : 0);
-	s2_len = ft_strlen(s2);
-	result = malloc(s1_len + s2_len + 1);
-	if (!result)
-		return (NULL);
-	i = 0;
-	j = 0;
-	if (s1)
-		while (i < s1_len)
-			result[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		result[i++] = s2[j++];
-	result[i] = '\0';
-	if (free_s1 && s1)
-		free(s1);
-	return (result);
-}
-
 static int	read_map_loop1(t_cub *data, char *line, size_t *i, size_t *j)
 {
 	size_t	len;

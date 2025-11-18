@@ -6,7 +6,7 @@
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:43:20 by sle-bail          #+#    #+#             */
-/*   Updated: 2025/11/18 13:47:22 by sle-bail         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:20:00 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,6 @@ typedef struct s_door_proj
 	double	u;
 	int		mode;
 }			t_door_proj;
-
-static int	clamp_texture_x(double u, t_texture *tex)
-{
-	int	tex_x;
-
-	tex_x = (int)(u * (double)tex->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= tex->width)
-		tex_x = tex->width - 1;
-	return (tex_x);
-}
-
-static int	compute_texture_y(t_cub *g, t_texture *tex, int y_pos, int line_h)
-{
-	int	offset;
-
-	offset = y_pos * 256 - g->w_height * 128 + line_h * 128;
-	return (((offset * tex->height) / line_h) / 256);
-}
 
 static void	draw_door_pixel(t_cub *g, int x, int y, t_door_proj proj)
 {
@@ -81,60 +61,25 @@ static void	draw_door_column(t_cub *g, int x, t_door_proj proj)
 		g->z_buffer[x] = proj.t;
 }
 
-static int	compute_ray_intersection(t_cub *g, t_door *door, double camera_x,
-		double *out_t, double *out_u)
-{
-	double	rx;
-	double	ry;
-	double	t;
-	double	u;
-
-	rx = g->player->dirx + g->player->planex * camera_x;
-	ry = g->player->diry + g->player->planey * camera_x;
-	if (door->orient == DOOR_Y)
-	{
-		if (fabs(rx) < FLOAT_EPSILON)
-			return (0);
-		t = (door->i - g->player->pos_x) / rx;
-		if (t <= 0)
-			return (0);
-		u = g->player->pos_y + t * ry - door->j;
-	}
-	else
-	{
-		if (fabs(ry) < FLOAT_EPSILON)
-			return (0);
-		t = (door->j - g->player->pos_y) / ry;
-		if (t <= 0)
-			return (0);
-		u = g->player->pos_x + t * rx - door->i;
-	}
-	if (u < 0.0 || u > 1.0)
-		return (0);
-	*out_t = t;
-	*out_u = u;
-	return (1);
-}
-
 static void	render_one_door_loop(t_cub *g, t_door *door, int mode)
 {
-	double		t;
-	double		u;
-	double		camera_x;
-	int			x;
-	t_door_proj	proj;
+	t_ray_result	result;
+	double			camera_x;
+	int				x;
+	t_door_proj		proj;
 
 	x = 0;
 	while (x < g->w_width)
 	{
 		camera_x = 2.0 * x / (double)g->w_width - 1.0;
-		if (compute_ray_intersection(g, door, camera_x, &t, &u))
+		result = compute_ray_intersection(g, door, camera_x);
+		if (result.hit)
 		{
-			if (!(t >= g->z_buffer[x] && (door->is_closed || mode == 1
+			if (!(result.t >= g->z_buffer[x] && (door->is_closed || mode == 1
 						|| mode == 3)))
 			{
-				proj.t = t;
-				proj.u = u;
+				proj.t = result.t;
+				proj.u = result.u;
 				proj.mode = mode;
 				draw_door_column(g, x, proj);
 			}
@@ -143,26 +88,11 @@ static void	render_one_door_loop(t_cub *g, t_door *door, int mode)
 	}
 }
 
-static void	render_one_door(t_cub *g, t_door *door)
+void	render_one_door(t_cub *g, t_door *door)
 {
 	if (!g->door_texture || !g->door_texture->addr)
 		return ;
 	render_one_door_loop(g, door, 0);
-}
-
-static void	render_closed_doors(t_cub *g)
-{
-	int	i;
-
-	if (!g->doors || g->door_count == 0)
-		return ;
-	i = 0;
-	while (i < g->door_count)
-	{
-		if (g->doors[i].is_closed)
-			render_one_door(g, &g->doors[i]);
-		i++;
-	}
 }
 
 void	render_doors(t_cub *g)

@@ -32,18 +32,14 @@ static void	fill_tile_block(t_minimap *m, int x, int y, int color)
 
 static int	get_tile_color(char tile_type)
 {
-	switch (tile_type)
-	{
-	case 'P':
+	if (tile_type == 'P')
 		return (MMAP_COLOR_PLAYER);
-	case '1':
+	else if (tile_type == '1')
 		return (MMAP_COLOR_WALL);
-	case '0':
+	else if (tile_type == '0')
 		return (MMAP_COLOR_FLOOR);
-	case ' ':
-	default:
+	else
 		return (MMAP_COLOR_SPACE);
-	}
 }
 
 static void	paint_single_tile(t_minimap *m, int grid_x, int grid_y)

@@ -12,22 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-bool	is_valid_position(int x, int y, char **map, int map_height)
-{
-	if (y < 0 || y >= map_height)
-		return (false);
-	if (x < 0 || x >= (int)ft_strlen(map[y]))
-		return (false);
-	return (true);
-}
-
-bool	is_empty_space_at(int x, int y, char **map, int map_height)
-{
-	if (!is_valid_position(x, y, map, map_height))
-		return (false);
-	return (map[y][x] == ' ');
-}
-
 bool	check_adjacent_horizontal(int x, int y, char **map, int height)
 {
 	if (is_empty_space_at(x - 1, y, map, height))

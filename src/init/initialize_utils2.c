@@ -75,64 +75,16 @@ int	data_init(t_cub *data)
 	return (1);
 }
 
-typedef struct s_direction
-{
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	yaw;
-}			t_direction;
-
 void	set_player_direction(t_player *player, t_direction dir)
 {
 	player->dirx = dir.dirx;
 	player->diry = dir.diry;
 	player->planex = dir.planex;
-	player->planey = (dir.planex != 0) ? 0 : 0.888
-		* (dir.diry != 0 ? dir.diry : 1);
+	if (dir.planex != 0)
+		player->planey = 0;
+	else if (dir.diry != 0)
+		player->planey = 0.888 * dir.diry;
+	else
+		player->planey = 0.888;
 	player->yaw = dir.yaw;
-}
-
-void	set_player_direction_north(t_player *player)
-{
-	t_direction	dir;
-
-	dir.dirx = 0;
-	dir.diry = -1;
-	dir.planex = 0.888;
-	dir.yaw = -M_PI / 2;
-	set_player_direction(player, dir);
-}
-
-void	set_player_direction_south(t_player *player)
-{
-	t_direction	dir;
-
-	dir.dirx = 0;
-	dir.diry = 1;
-	dir.planex = -0.888;
-	dir.yaw = M_PI / 2;
-	set_player_direction(player, dir);
-}
-
-void	set_player_direction_east(t_player *player)
-{
-	t_direction	dir;
-
-	dir.dirx = 1;
-	dir.diry = 0;
-	dir.planex = 0;
-	dir.yaw = 0;
-	set_player_direction(player, dir);
-}
-
-void	set_player_direction_west(t_player *player)
-{
-	t_direction	dir;
-
-	dir.dirx = -1;
-	dir.diry = 0;
-	dir.planex = 0;
-	dir.yaw = M_PI;
-	set_player_direction(player, dir);
 }

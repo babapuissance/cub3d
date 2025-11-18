@@ -12,11 +12,6 @@
 
 #include "../../includes/cub3d.h"
 
-static void	move_in_direction(t_cub *cub, double dx, double dy)
-{
-	apply_movement_vector(cub, dx, dy);
-}
-
 static void	move_forward(t_cub *cub)
 {
 	move_in_direction(cub, cub->player->dirx, cub->player->diry);

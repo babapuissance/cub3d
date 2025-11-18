@@ -39,21 +39,6 @@ char	**copy_map(char **original, int height)
 	return (duplicate);
 }
 
-void	free_map_copy(char **map_copy, int height)
-{
-	int	row;
-
-	if (!map_copy)
-		return ;
-	row = 0;
-	while (row < height)
-	{
-		free(map_copy[row]);
-		row++;
-	}
-	free(map_copy);
-}
-
 static void	mark_error(char **map)
 {
 	if (map && map[0])
@@ -88,44 +73,9 @@ void	flood_fill(char **map_copy, int x, int y, int height)
 	flood_fill(map_copy, x, y - 1, height);
 }
 
-bool	check_map_borders_after_flood(char **map_copy, int height)
-{
-	(void)height;
-	if (map_copy && map_copy[0] && map_copy[0][0] == 'E')
-		return (false);
-	return (true);
-}
-
 bool	flood_fill_test(t_cub *data, char **map)
 {
-	char	**map_copy;
-	int		x;
-	int		y;
-				bool result;
-
 	if (!validate_map_in_single_pass(data, map))
 		return (false);
-	map_copy = copy_map(map, data->map->height);
-	if (!map_copy)
-		return (false);
-	y = 0;
-	while (y < data->map->height && map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (is_player_character(map[y][x]))
-			{
-				flood_fill(map_copy, x, y, data->map->height);
-				result = check_map_borders_after_flood(map_copy,
-						data->map->height);
-				free_map_copy(map_copy, data->map->height);
-				return (result);
-			}
-			x++;
-		}
-		y++;
-	}
-	free_map_copy(map_copy, data->map->height);
-	return (false);
+	return (perform_flood_fill_validation(data, map));
 }

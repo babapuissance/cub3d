@@ -80,23 +80,6 @@ static char	**build_minimap_grid(t_cub *data, t_minimap *minimap)
 	return (grid);
 }
 
-static double	get_minimap_rotation_from_spawn(char dir)
-{
-	switch (dir)
-	{
-	case 'N':
-		return (0.0);
-	case 'S':
-		return (M_PI);
-	case 'E':
-		return (M_PI / 2.0);
-	case 'W':
-		return (-M_PI / 2.0);
-	default:
-		return (0.0);
-	}
-}
-
 void	render_minimap(t_cub *data)
 {
 	t_minimap	minimap;
@@ -110,7 +93,8 @@ void	render_minimap(t_cub *data)
 			(int)data->player->pos_x);
 	minimap.offset_y = calculate_map_offset(&minimap, data->map->height,
 			(int)data->player->pos_y);
-	minimap.rotation = get_minimap_rotation_from_spawn(data->player->player_dir);
+	minimap.rotation = get_minimap_rotation_from_spawn(
+			data->player->player_dir);
 	minimap.map = build_minimap_grid(data, &minimap);
 	if (!minimap.map)
 	{

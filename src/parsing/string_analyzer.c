@@ -35,28 +35,6 @@ char	**split_on_space_tab(char const *s)
 	return (result);
 }
 
-char	*skip_to_next_line(char *str)
-{
-	int	position;
-
-	if (!ft_strchr(str, '\n'))
-		return (NULL);
-	position = 0;
-	while (str[position] && str[position] != '\n')
-		position++;
-	return (str + position);
-}
-
-int	end_of_spaces_index(char *line)
-{
-	int	position;
-
-	position = 0;
-	while (line[position] && (line[position] == ' ' || line[position] == '\t'))
-		position++;
-	return (position);
-}
-
 bool	is_correct_extension(char *filename, char *ext)
 {
 	char	*dot_position;

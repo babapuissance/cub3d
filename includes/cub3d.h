@@ -1,13 +1,12 @@
 /* ************************************************************************** */
-
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                                      :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbariol- <nassimbariol@student.42.fr>>     +#+  +:+       +#+        */
+/*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:00:00 by nbariol-          #+#    #+#             */
-/*   Updated: 2024/10/28 16:00:00 by nbariol-         ###   ########.fr       */
+/*   Created: 2025/11/18 17:42:10 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/18 17:42:13 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +92,14 @@
 # define MMAP_COLOR_PLAYER 0x6B1B12
 # define MMAP_COLOR_SPACE 0x000000
 # define MMAP_DEBUG_MSG 0
+
+typedef struct s_direction
+{
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	yaw;
+}			t_direction;
 
 typedef struct s_player
 {
@@ -194,6 +201,21 @@ typedef struct s_door
 	t_door_orient	orient;
 	int				is_closed;
 }					t_door;
+
+typedef struct s_ray_result
+{
+	double			t;
+	double			u;
+	int				hit;
+}					t_ray_result;
+
+typedef struct s_ray_calc
+{
+	double			rx;
+	double			ry;
+	double			t;
+	double			u;
+}					t_ray_calc;
 
 typedef struct s_sprite
 {
@@ -320,23 +342,44 @@ void				floor_color(t_cub *data);
 void				textures_and_colors_init(t_cub *data);
 
 void				initialize_mlx(t_cub *cub);
+void				malloc_error(void);
+void				window_error(t_cub *cub);
+void				image_error(t_cub *cub);
+void				initialize_game(t_cub *data);
+void				run_game(t_cub *data);
+void				precalculate_camera_x(t_cub *data);
 void				events_handling(t_cub *cub);
 int					key_hook(int keysym, t_cub *cub);
+int					key_release_handler(int keysym, t_cub *cub);
 void				cub_free(t_cub *data);
 void				free_data(t_cub *data);
 
 void				move_player(t_cub *cub);
+void				move_in_direction(t_cub *cub, double dx, double dy);
 void				rotate_player(t_cub *data);
 
 int					render_frame(t_cub *game);
 
 void				init_sprite(t_cub *data);
 void				render_sprite(t_cub *data);
+void				init_sprite_params(int *params, int start, int height,
+						int left);
+void				draw_sprite_loop(t_cub *data, int params[5], double tr_y);
+void				draw_sprite_column(t_cub *d, int x, int prm[5], double tr_y);
 void				render_doors(t_cub *data);
+void				render_one_door(t_cub *g, t_door *door);
+void				render_closed_doors(t_cub *g);
+t_ray_result		compute_ray_intersection(t_cub *g, t_door *door,
+						double camera_x);
+int					clamp_texture_x(double u, t_texture *tex);
+int					compute_texture_y(t_cub *g, t_texture *tex, int y_pos,
+						int line_h);
 
 void				init_mob(t_cub *data);
 void				mob_update(t_cub *data, double dt);
 void				mob_render(t_cub *data);
+int					check_collision(t_cub *data, double len);
+void				find_spawn(t_cub *data, double *x, double *y);
 
 void				update_monster_event(t_cub *data);
 int					get_event_state(t_cub *data);
@@ -369,6 +412,8 @@ void				free_mlx_resources(t_cub *data);
 int					read_file_infos(t_cub *data, int fd);
 int					read_map_content(t_cub *data, int fd);
 int					cleanup_remaining_lines(int fd);
+void				copy_strings(char *result, char *s1, char const *s2);
+char				*ft_strjoin_free(char *s1, char const *s2, int free_s1);
 
 void				raycast_init(int x, t_player *player, t_ray *ray,
 						double camera_x);
@@ -394,10 +439,12 @@ void				free_map_copy(char **map_copy, int map_height);
 bool				check_map_borders_after_flood(char **map_copy,
 						int map_height);
 bool				flood_fill_test(t_cub *data, char **map);
+bool				perform_flood_fill_validation(t_cub *data, char **map);
 
 bool				infos_checker(t_cub *data);
 
 int					data_init(t_cub *data);
+void				set_player_direction(t_player *player, t_direction dir);
 void				set_player_direction_north(t_player *player);
 void				set_player_direction_south(t_player *player);
 void				set_player_direction_east(t_player *player);
@@ -437,6 +484,7 @@ bool				check_duplicate_identifiers(t_cub *data);
 
 void				render_minimap(t_cub *data);
 void				render_minimap_image(t_cub *data, t_minimap *minimap);
+double				get_minimap_rotation_from_spawn(char dir);
 void				init_img(t_cub *data, t_img *img, int width, int height);
 void				set_image_pixel(t_img *img, int x, int y, int color);
 void				free_tab(void **tab);
