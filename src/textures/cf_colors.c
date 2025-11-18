@@ -130,7 +130,9 @@ void	ceiling_color(t_cub *data)
 {
 	t_rgb_color	rgb;
 
-	rgb = {&data->ceiling_rgb->r, &data->ceiling_rgb->g, &data->ceiling_rgb->b};
+	rgb.r = &data->ceiling_rgb->r;
+	rgb.g = &data->ceiling_rgb->g;
+	rgb.b = &data->ceiling_rgb->b;
 	process_color_line(data, 'C', rgb);
 }
 
@@ -138,6 +140,8 @@ void	floor_color(t_cub *data)
 {
 	t_rgb_color	rgb;
 
-	rgb = {&data->floor_rgb->r, &data->floor_rgb->g, &data->floor_rgb->b};
+	rgb.r = &data->floor_rgb->r;
+	rgb.g = &data->floor_rgb->g;
+	rgb.b = &data->floor_rgb->b;
 	process_color_line(data, 'F', rgb);
 }

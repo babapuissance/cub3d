@@ -74,11 +74,12 @@ bool	can_move_to_coordinates(t_cub *game, double target_x, double target_y)
 	{
 		if (!is_door_character(tile))
 			return (false);
-		{
-			check = {grid_x, grid_y, target_x, target_y};
-			if (is_blocked_by_closed_door(game, game->player->pos_x, check))
-				return (false);
-		}
+		check.grid_x = grid_x;
+		check.grid_y = grid_y;
+		check.target_x = target_x;
+		check.target_y = target_y;
+		if (is_blocked_by_closed_door(game, game->player->pos_x, check))
+			return (false);
 	}
 	return (true);
 }

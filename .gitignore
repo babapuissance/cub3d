@@ -1,0 +1,24 @@
+# Compiled executables
+cub3D
+
+# Object files
+*.o
+obj/
+
+# Static libraries
+*.a
+
+# Build artifacts
+minilibx-linux/*.a
+minilibx-linux/Makefile.gen
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

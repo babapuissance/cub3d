@@ -97,7 +97,10 @@ void	set_player_direction_north(t_player *player)
 {
 	t_direction	dir;
 
-	dir = {0, -1, 0.888, -M_PI / 2};
+	dir.dirx = 0;
+	dir.diry = -1;
+	dir.planex = 0.888;
+	dir.yaw = -M_PI / 2;
 	set_player_direction(player, dir);
 }
 
@@ -105,7 +108,10 @@ void	set_player_direction_south(t_player *player)
 {
 	t_direction	dir;
 
-	dir = {0, 1, -0.888, M_PI / 2};
+	dir.dirx = 0;
+	dir.diry = 1;
+	dir.planex = -0.888;
+	dir.yaw = M_PI / 2;
 	set_player_direction(player, dir);
 }
 
@@ -113,7 +119,10 @@ void	set_player_direction_east(t_player *player)
 {
 	t_direction	dir;
 
-	dir = {1, 0, 0, 0};
+	dir.dirx = 1;
+	dir.diry = 0;
+	dir.planex = 0;
+	dir.yaw = 0;
 	set_player_direction(player, dir);
 }
 
@@ -121,6 +130,9 @@ void	set_player_direction_west(t_player *player)
 {
 	t_direction	dir;
 
-	dir = {-1, 0, 0, M_PI};
+	dir.dirx = -1;
+	dir.diry = 0;
+	dir.planex = 0;
+	dir.yaw = M_PI;
 	set_player_direction(player, dir);
 }

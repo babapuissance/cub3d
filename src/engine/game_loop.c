@@ -22,7 +22,7 @@ static void	process_rotation_input(t_cub *game)
 
 static void	handle_player_actions(t_cub *game)
 {
-	move_player(game);
+	move_player(game);																																																														
 	process_rotation_input(game);
 	mob_update(game, 0.016);
 }

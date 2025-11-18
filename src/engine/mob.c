@@ -83,10 +83,10 @@ void	mob_update(t_cub *data, double dt)
 		return ;
 	dx /= len;
 	dy /= len;
-	{
-		move = {dx, dy, dt};
-		try_move(data->mob, data, move);
-	}
+	move.dx = dx;
+	move.dy = dy;
+	move.dt = dt;
+	try_move(data->mob, data, move);
 }
 
 void	find_spawn(t_cub *data, double *x, double *y)
