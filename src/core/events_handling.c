@@ -6,7 +6,7 @@
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 23:05:31 by nbariol-          #+#    #+#             */
-/*   Updated: 2025/11/18 13:42:12 by sle-bail         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:06:09 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,9 @@ int	key_hook(int keysym, t_cub *cub)
 	{
 		cub->player->capture_mouse = !cub->player->capture_mouse;
 		if (cub->player->capture_mouse)
-		{
-#ifdef __linux__
 			mlx_mouse_hide(cub->mlx, cub->win);
-#else
-			mlx_mouse_hide();
-#endif
-		}
 		else
-		{
-#ifdef __linux__
 			mlx_mouse_show(cub->mlx, cub->win);
-#else
-			mlx_mouse_show();
-#endif
-		}
 	}
 	if (keysym == XK_space)
 		toggle_door_state(cub);
@@ -112,11 +100,7 @@ static int	click_mouse_event(int keycode, int h, int v, t_cub *cub)
 	if (keycode && !cub->player->capture_mouse)
 	{
 		cub->player->capture_mouse = 1;
-#ifdef __linux__
 		mlx_mouse_hide(cub->mlx, cub->win);
-#else
-		mlx_mouse_hide();
-#endif
 	}
 	return (0);
 }
