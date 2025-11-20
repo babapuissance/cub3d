@@ -6,21 +6,15 @@
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:42:10 by sle-bail          #+#    #+#             */
-/*   Updated: 2025/11/18 17:42:13 by sle-bail         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:30:48 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libft/libft.h"
-
-# ifdef __linux__
-#  include "../minilibx-linux/mlx.h"
-#  include <X11/keysym.h>
-# else
-#  include "../minilibx_opengl_20191021/mlx.h"
-# endif
-
+# include "../minilibx-linux/mlx.h"
+# include <X11/keysym.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
@@ -42,19 +36,6 @@
 
 # define TICK_SPEED 0.1
 # define TARGET_FPS 60
-
-// Keycodes - macOS only (Linux uses X11 keysyms from keysym.h)
-# ifndef __linux__
-#  define XK_Escape 53
-#  define XK_w 13
-#  define XK_s 1
-#  define XK_a 0
-#  define XK_d 2
-#  define XK_space 49
-#  define XK_m 46
-#  define XK_Left 123
-#  define XK_Right 124
-# endif
 
 # define GAME_MENU 0
 # define GAME_PLAYING 1
@@ -95,11 +76,11 @@
 
 typedef struct s_direction
 {
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	yaw;
-}			t_direction;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			yaw;
+}					t_direction;
 
 typedef struct s_player
 {
@@ -192,7 +173,7 @@ typedef enum e_door_orient
 {
 	DOOR_X,
 	DOOR_Y
-}	t_door_orient;
+}					t_door_orient;
 
 typedef struct s_door
 {
@@ -324,6 +305,22 @@ void				draw_column(t_cub *data, int x, t_texture *texture,
 void				cast_single_ray(t_cub *data, int x);
 void				render_floor_textured(t_cub *game, int x, int start_y);
 void				render_ceiling_textured(t_cub *game, int x, int end_y);
+int					get_floor_texture_color(t_cub *game, double x, double y);
+int					get_ceiling_texture_color(t_cub *game, double x, double y);
+void				reset_ray_parameters(t_ray *ray_ptr);
+void				setup_ray_direction_cached(double cx, t_player *p,
+						t_ray *r);
+void				calculate_delta_distances(t_ray *ray_data);
+void				configure_horizontal_step(t_ray *r, t_player *p);
+void				configure_vertical_step(t_ray *r, t_player *p);
+bool				is_grid_position_out_of_bounds(t_ray *r, t_cub *game);
+bool				is_wall_tile(char tile);
+void				advance_ray_in_grid(t_ray *r);
+double				compute_perpendicular_distance(t_ray *r);
+void				calculate_wall_intersection_point(t_ray *r, t_player *p);
+t_texture			*get_horizontal_wall_texture(t_cub *game, t_ray *r);
+t_texture			*get_vertical_wall_texture(t_cub *game, t_ray *r);
+bool				should_flip_texture(t_ray *r);
 
 int					optimized_pixel_put(t_img *img, int x, int y, int color);
 
@@ -340,6 +337,10 @@ t_texture			*load_texture_from_xpm(t_cub *data, const char *path);
 void				ceiling_color(t_cub *data);
 void				floor_color(t_cub *data);
 void				textures_and_colors_init(t_cub *data);
+int					load_wall_texture(t_cub *d, char *id, char **path,
+						t_texture **tex);
+int					skip_whitespace_and_get_next(char *str, int *idx);
+int					extract_single_rgb_value(char *line, int *position);
 
 void				initialize_mlx(t_cub *cub);
 void				malloc_error(void);
@@ -365,7 +366,8 @@ void				render_sprite(t_cub *data);
 void				init_sprite_params(int *params, int start, int height,
 						int left);
 void				draw_sprite_loop(t_cub *data, int params[5], double tr_y);
-void				draw_sprite_column(t_cub *d, int x, int prm[5], double tr_y);
+void				draw_sprite_column(t_cub *d, int x, int prm[5],
+						double tr_y);
 void				render_doors(t_cub *data);
 void				render_one_door(t_cub *g, t_door *door);
 void				render_closed_doors(t_cub *g);
@@ -386,7 +388,8 @@ int					get_event_state(t_cub *data);
 int					should_show_blackout(t_cub *data);
 long				now_ms(void);
 
-bool				is_position_within_map_bounds(double x, double y, t_map *map);
+bool				is_position_within_map_bounds(double x, double y,
+						t_map *map);
 bool				is_tile_walkable(char tile_char);
 bool				can_move_to_coordinates(t_cub *game, double target_x,
 						double target_y);
@@ -401,7 +404,6 @@ void				apply_rotation_to_direction(t_player *plr,
 void				apply_rotation_to_camera_plane(t_player *plr,
 						double rotation_angle);
 void				execute_rotation(t_cub *game, double angle);
-
 
 void				free_map_data(t_map *map);
 void				free_texture_strings(t_cub *data);
@@ -474,7 +476,8 @@ void				reset_game(t_cub *data);
 void				find_spawn(t_cub *data, double *x, double *y);
 
 int					load_menu_texture(t_cub *data);
-int					is_button_clicked(t_button *button, int mouse_x, int mouse_y);
+int					is_button_clicked(t_button *button, int mouse_x,
+						int mouse_y);
 int					load_win_texture(t_cub *data);
 int					load_gameover_texture(t_cub *data);
 

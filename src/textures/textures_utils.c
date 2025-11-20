@@ -32,3 +32,15 @@ t_texture	*load_texture_from_xpm(t_cub *data, const char *path)
 			&tex->line_length, &tex->endian);
 	return (tex);
 }
+
+int	load_wall_texture(t_cub *d, char *id, char **path_ptr, t_texture **tex_ptr)
+{
+	if (!parse_texture_path(d, id, path_ptr, "Texture reading failed.\n"))
+		return (0);
+	*tex_ptr = load_texture_from_xpm(d, *path_ptr);
+	if (!*tex_ptr)
+		return (0);
+	if ((*tex_ptr)->height > 2048 || (*tex_ptr)->width > 2048)
+		return (0);
+	return (1);
+}

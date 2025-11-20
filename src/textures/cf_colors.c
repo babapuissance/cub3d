@@ -6,43 +6,13 @@
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:45:36 by sle-bail          #+#    #+#             */
-/*   Updated: 2025/11/18 13:49:21 by sle-bail         ###   ########.fr       */
+/*   Updated: 2025/11/20 20:47:00 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-#define RGB_MIN 0
-#define RGB_MAX 255
 #define RGB_COMPONENTS 3
-
-static int	skip_whitespace_and_get_next(char *str, int *idx)
-{
-	while (str[*idx] && (str[*idx] == ' ' || str[*idx] == '\t'))
-		(*idx)++;
-	return (str[*idx]);
-}
-
-static int	extract_single_rgb_value(char *line, int *position)
-{
-	int	value;
-	int	started;
-
-	skip_whitespace_and_get_next(line, position);
-	if (!ft_isdigit(line[*position]))
-		return (-1);
-	value = 0;
-	started = 0;
-	while (line[*position] && ft_isdigit(line[*position]))
-	{
-		value = value * 10 + (line[*position] - '0');
-		started = 1;
-		(*position)++;
-	}
-	if (!started || value < RGB_MIN || value > RGB_MAX)
-		return (-1);
-	return (value);
-}
 
 static int	parse_three_rgb_components(char *line, int start_pos, int *rgb)
 {

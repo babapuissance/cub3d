@@ -1,16 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycaster_utils3.c                                 :+:      :+:    :+:   */
+/*   raycast_init_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 20:00:00 by sle-bail          #+#    #+#             */
-/*   Updated: 2025/11/18 20:00:00 by sle-bail         ###   ########.fr       */
+/*   Created: 2025/11/20 20:00:00 by sle-bail          #+#    #+#             */
+/*   Updated: 2025/11/20 20:00:00 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	reset_ray_parameters(t_ray *ray_ptr)
+{
+	ray_ptr->camerax = 0;
+	ray_ptr->dirx = 0;
+	ray_ptr->diry = 0;
+	ray_ptr->mapx = 0;
+	ray_ptr->mapy = 0;
+	ray_ptr->stepx = 0;
+	ray_ptr->stepy = 0;
+	ray_ptr->sidedistx = 0;
+	ray_ptr->sidedisty = 0;
+	ray_ptr->deltadistx = 0;
+	ray_ptr->deltadisty = 0;
+	ray_ptr->wall_distance = 0;
+	ray_ptr->wall_x = 0;
+	ray_ptr->side = 0;
+	ray_ptr->line_height = 0;
+	ray_ptr->draw_start = 0;
+	ray_ptr->draw_end = 0;
+}
+
+void	setup_ray_direction_cached(double camera_x, t_player *plr, t_ray *r)
+{
+	r->camerax = camera_x;
+	r->dirx = plr->dirx + plr->planex * camera_x;
+	r->diry = plr->diry + plr->planey * camera_x;
+}
+
+void	calculate_delta_distances(t_ray *ray_data)
+{
+	ray_data->deltadistx = fabs(1 / ray_data->dirx);
+	ray_data->deltadisty = fabs(1 / ray_data->diry);
+}
 
 void	configure_horizontal_step(t_ray *r, t_player *p)
 {
@@ -37,32 +71,5 @@ void	configure_vertical_step(t_ray *r, t_player *p)
 	{
 		r->stepy = 1;
 		r->sidedisty = (r->mapy + 1.0 - p->pos_y) * r->deltadisty;
-	}
-}
-
-bool	is_grid_position_out_of_bounds(t_ray *r, t_cub *game)
-{
-	return (r->mapy < 0 || r->mapx < 0 || r->mapy >= game->map->height
-		|| r->mapx >= game->map->width);
-}
-
-bool	is_wall_tile(char tile)
-{
-	return (tile == '1' || tile == ' ');
-}
-
-void	advance_ray_in_grid(t_ray *r)
-{
-	if (r->sidedistx < r->sidedisty)
-	{
-		r->sidedistx += r->deltadistx;
-		r->mapx += r->stepx;
-		r->side = 0;
-	}
-	else
-	{
-		r->sidedisty += r->deltadisty;
-		r->mapy += r->stepy;
-		r->side = 1;
 	}
 }

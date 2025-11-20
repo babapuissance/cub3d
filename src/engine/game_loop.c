@@ -32,8 +32,8 @@ static void	render_game_frame(t_cub *g)
 	raycasting(g);
 	render_doors(g);
 	mob_render(g);
-	mlx_put_image_to_window(g->mlx, g->win, g->img.data, 0, 0);
 	render_minimap(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->img.data, 0, 0);
 }
 
 static int	handle_game_state_display(t_cub *game)

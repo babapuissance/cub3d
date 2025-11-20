@@ -6,7 +6,7 @@
 /*   By: sle-bail <sle-bail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:45:24 by sle-bail          #+#    #+#             */
-/*   Updated: 2025/11/18 13:49:12 by sle-bail         ###   ########.fr       */
+/*   Updated: 2025/11/20 20:20:00 by sle-bail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	render_ceiling_optimized(t_cub *game, int col, int limit)
 	int	row;
 	int	sky_color;
 
-	sky_color = (game->ceiling_rgb->r << 16) | (game->ceiling_rgb->g << 8) | game->ceiling_rgb->b;
+	sky_color = (game->ceiling_rgb->r << 16) | (game->ceiling_rgb->g << 8)
+		| game->ceiling_rgb->b;
 	row = 0;
 	while (row < limit)
 	{
@@ -31,7 +32,8 @@ static void	render_floor_optimized(t_cub *game, int col, int start)
 	int	row;
 	int	ground_color;
 
-	ground_color = (game->floor_rgb->r << 16) | (game->floor_rgb->g << 8) | game->floor_rgb->b;
+	ground_color = (game->floor_rgb->r << 16) | (game->floor_rgb->g << 8)
+		| game->floor_rgb->b;
 	row = start;
 	while (row < HEIGHT)
 	{
@@ -83,22 +85,4 @@ void	cast_single_ray(t_cub *data, int x)
 	exec_dda(data, data->ray, 0);
 	line_height(data->ray, data->player, data);
 	data->z_buffer[x] = data->ray->wall_distance;
-}
-
-int	raycasting(t_cub *data)
-{
-	int			screen_column;
-	t_texture	*wall_tex;
-	int			texture_x_coord;
-
-	screen_column = 0;
-	while (screen_column < WIDTH)
-	{
-		cast_single_ray(data, screen_column);
-		wall_tex = select_texture(data, data->ray);
-		calculate_texture_coordinates(data->ray, wall_tex, &texture_x_coord);
-		draw_column(data, screen_column, wall_tex, texture_x_coord);
-		screen_column++;
-	}
-	return (0);
 }
