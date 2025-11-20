@@ -36,7 +36,8 @@ static char	get_cell_type(t_cub *d, t_minimap *m, int x, int y)
 	cell = d->map->map_tab[map_y][map_x];
 	if (cell == '1')
 		return ('1');
-	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W'
+		|| cell == 'D')
 		return ('0');
 	return ('\0');
 }

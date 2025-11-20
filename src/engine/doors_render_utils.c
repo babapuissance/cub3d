@@ -24,6 +24,22 @@ int	clamp_texture_x(double u, t_texture *tex)
 	return (tex_x);
 }
 
+int	calc_door_tex_y(t_cub *g, int y, int line_h)
+{
+	double	step;
+	double	tex_pos;
+	int		tex_y;
+
+	step = (double)g->door_texture->height / line_h;
+	tex_pos = (y - g->w_height / 2 + line_h / 2) * step;
+	tex_y = (int)tex_pos;
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y >= g->door_texture->height)
+		tex_y = g->door_texture->height - 1;
+	return (tex_y);
+}
+
 int	compute_texture_y(t_cub *g, t_texture *tex, int y_pos, int line_h)
 {
 	int	offset;

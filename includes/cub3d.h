@@ -374,6 +374,7 @@ void				render_closed_doors(t_cub *g);
 t_ray_result		compute_ray_intersection(t_cub *g, t_door *door,
 						double camera_x);
 int					clamp_texture_x(double u, t_texture *tex);
+int					calc_door_tex_y(t_cub *g, int y, int line_h);
 int					compute_texture_y(t_cub *g, t_texture *tex, int y_pos,
 						int line_h);
 

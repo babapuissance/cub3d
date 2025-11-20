@@ -21,14 +21,14 @@ typedef struct s_door_proj
 
 static void	draw_door_pixel(t_cub *g, int x, int y, t_door_proj proj)
 {
-	int	tex_x;
-	int	tex_y;
-	int	color;
-	int	line_h;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+	int		line_h;
 
 	line_h = (int)(g->w_height / proj.t);
 	tex_x = clamp_texture_x(proj.u, g->door_texture);
-	tex_y = compute_texture_y(g, g->door_texture, y, line_h);
+	tex_y = calc_door_tex_y(g, y, line_h);
 	color = get_texture_color(g->door_texture, tex_x, tex_y);
 	if ((color & 0x00FFFFFF) != 0 && (proj.mode == 0 || proj.mode == 3
 			|| proj.mode == 1))

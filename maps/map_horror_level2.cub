@@ -1,0 +1,30 @@
+NO ./textures/wood.xpm
+SO ./textures/wood.xpm
+EA ./textures/wood.xpm
+WE ./textures/wood.xpm
+FT ./textures/sole_1.xpm
+CT ./textures/plafond_2.xpm
+
+C 0,0,40
+F 5,45,45
+
+     111
+     1S1  111
+     101  101
+    11011 1F1
+    10001 101
+    10001 101
+    1F1F11101
+    101011101
+    1000D0001
+    1F1111101
+    101   101
+    161   101
+    101   101
+    101   101
+    101   101
+    101   101
+    101   101
+    1F11111F1
+    100000001
+    111111111
